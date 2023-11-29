@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
+// import NavBar from "../Components/NavBar";
+// import { Footer } from "../Components/Footer";
 import back from "../Assets/back.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,24 +10,16 @@ import Cookies from 'js-cookie';
 export const CartsPage = () => {
   const [quantity, setQuantity] = useState(2);
   const [cartItems, setCartItems] = useState([]);
-  const total = useRef(0);
-  const [len , setLen] = useState(0)
+  const total = React.useRef(0);
 
- useEffect(() => {
+  useEffect(() => {
     const user_id = Cookies.get("user_id")
+
     axios
-      .post("http://localhost:3001/cart",{
-        "user_id": user_id,
-        headers: {
-          "authorization": sessionStorage.getItem("Token")
-        }
-      })
+      .post("http://localhost:3001/cart",{"user_id": user_id})
       .then((response) => {
         setCartItems(response.data);
-        console.log("response",response);
-        console.log("len",response.data.length)
-        setLen(response.data.length)
-
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching cart items:", error);
@@ -52,24 +46,15 @@ export const CartsPage = () => {
       .post(`http://yourapi.com/cart/remove`, { productId })
       .then((response) => {
         setCartItems(response.data); // Assuming the response contains updated cart items
-        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error removing product:", error);
       });
   };
-  const memoizedValue = useMemo(() => {
-    total.current = 0;
-    for (let i = 0; i < len; i++) {
-      console.log(cartItems[i].total)
-      total.current += cartItems[i].total;
-    }
-  },[len])
-
   return (
     <>
       <div
-        class=" bg-white pt-20 "
+        class="h-screen bg-white pt-20 "
         style={{
           backgroundImage: `url(${back})`,
           backgroundSize: "cover",
@@ -90,7 +75,6 @@ export const CartsPage = () => {
                 <img
                   src={  require(`../../../server/imeges/${item.image_url}`)    }
                   alt=""
-                  style={{ height: '90px', width:'90px' }}
                   class="w-full rounded-lg sm:w-40"
                 />
                 <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
@@ -157,7 +141,7 @@ export const CartsPage = () => {
             <div class="flex justify-between">
               <p class="text-lg font-bold">Total</p>
               <div class="">
-                <p class="mb-1 text-lg font-bold">$ {(total.current).toFixed(2)}</p>
+                <p class="mb-1 text-lg font-bold">{total}</p>
               </div>
             </div>
             <Link to="/checkout">

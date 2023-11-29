@@ -24,7 +24,7 @@ const ProductDetails = ({addProductToCart}) => {
    useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/protduc/getid?id=${id}`);
+        const response = await axios.post(`http://localhost:3001/protduc/getid?id=34`);
         setProdect(response.data[0]);
         setimage1(require(`../../../server/imeges/${prodect.image_url2}`));
         setimage2(require(`../../../server/imeges/${prodect.image_url3}`));
@@ -60,7 +60,7 @@ const ProductDetails = ({addProductToCart}) => {
                 <div className="lg:order-2 lg:ml-5">
                   <div className="max-w-xl overflow-hidden rounded-lg">
                     <img
-                      className="h-[200px] w-[200px] object-cover"
+                      className="h-full w-full max-w-full object-cover"
                    src={mainImage.imgUrl}
                       alt=""
                     />

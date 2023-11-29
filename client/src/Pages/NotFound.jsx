@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import { Footer } from "../Components/Footer";
 
-export default function NotFound({children}) {
+export default function NotFound() {
   useEffect(() => {
     window.scrollTo(0, 0);
     <>

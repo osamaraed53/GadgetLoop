@@ -4,16 +4,12 @@ import CategoriesSectionTwo from "../Components/CategoriseSectionTwo";
 import axios from "axios";
 import { useState } from "react";
 
-export const Categories = ({addProductToCart , setcategoriesSelected,categoriesSelected}) => {
+export const Categories = ({addProductToCart}) => {
   const [prodects, setProdects] = useState([]);
 
-
-
-
   useEffect(() => {
-    console.log("type",categoriesSelected)
     axios
-      .get(`http://localhost:3001/protduc/${categoriesSelected}`)
+      .get("http://localhost:3001/protduc/getall")
       .then((response) => {
         setProdects(response.data);
         console.log("Categories",response.data)
@@ -22,7 +18,7 @@ export const Categories = ({addProductToCart , setcategoriesSelected,categoriesS
         console.error("Error fetching data:", error);
         console.error("Error response:", error.response);
       });
-  }, [categoriesSelected]);
+  }, []);
   
 
   const handleScrollToTop = () => {
@@ -37,9 +33,9 @@ export const Categories = ({addProductToCart , setcategoriesSelected,categoriesS
           Categories
         </h1>
       </div>
-      <CategoriesSectionTwo setcategoriesSelected={setcategoriesSelected} />
+      <CategoriesSectionTwo />
 
-      {/* <div class="px-32 flex flex-row lg:justify-start  justify-center items-center h-16">
+      <div class="px-32 flex flex-row lg:justify-start  justify-center items-center h-16">
         <select
           id="countries"
           class=" mr-3 h-12 w-28 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm  block p-2.5 "
@@ -61,9 +57,9 @@ export const Categories = ({addProductToCart , setcategoriesSelected,categoriesS
           <option value="FR">*****</option>
           <option value="DE">******</option>
         </select>
-      </div> */}
+      </div>
 
-      <ProductList addProductToCart={addProductToCart} prodects={prodects} />
+      <ProductList addProductToCart={addProductToCart} prodects={prodects}/>
 
 
       <button

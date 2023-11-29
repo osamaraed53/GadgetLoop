@@ -4,7 +4,6 @@ import samsung from "../Assets/samsung.png";
 import { Link } from "react-router-dom";
 
 function Card({ addProductToCart, prodects }) {
-  
   return (
     <>
       {prodects.map((item) => (
@@ -44,7 +43,7 @@ function Card({ addProductToCart, prodects }) {
                 }}
               ></div>
               <Link to={`/ProductDetails/${item.id}`}>
-                <img class="relative w-40 h-[12rem]" src={require(`../../../server/imeges/${item.image_url}`)} alt="" />
+                <img class="relative w-40 h-[12rem]" src={samsung} alt="" />
               </Link>
             </div>
             <div class="relative flex flex-row justify-between text-black px-6 pb-6 mt-6">
